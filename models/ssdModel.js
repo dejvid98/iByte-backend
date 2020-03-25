@@ -28,6 +28,12 @@ const ssdSchema = mongoose.Schema({
   readSpeed: {
     type: Number,
     required: true
+  },
+  rating: {
+    type: Number
+  },
+  reviews: {
+    type: [String]
   }
 });
 

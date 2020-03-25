@@ -24,6 +24,12 @@ const gpuSchema = mongoose.Schema({
   memoryType: {
     type: String,
     required: true
+  },
+  rating: {
+    type: Number
+  },
+  reviews: {
+    type: [String]
   }
 });
 

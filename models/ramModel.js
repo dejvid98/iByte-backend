@@ -24,6 +24,12 @@ const ramSchema = mongoose.Schema({
   speed: {
     type: Number,
     required: true
+  },
+  rating: {
+    type: Number
+  },
+  reviews: {
+    type: [String]
   }
 });
 

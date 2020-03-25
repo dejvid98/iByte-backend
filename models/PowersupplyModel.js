@@ -28,6 +28,12 @@ const powersupplySchema = mongoose.Schema({
   type: {
     type: String,
     required: true
+  },
+  rating: {
+    type: Number
+  },
+  reviews: {
+    type: [String]
   }
 });
 

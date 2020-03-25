@@ -20,6 +20,12 @@ const motherboardSchema = mongoose.Schema({
   format: {
     type: String,
     required: true
+  },
+  rating: {
+    type: Number
+  },
+  reviews: {
+    type: [String]
   }
 });
 

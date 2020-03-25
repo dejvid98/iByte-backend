@@ -28,6 +28,12 @@ const cpuSchema = mongoose.Schema({
   speed: {
     type: Number,
     required: true
+  },
+  rating: {
+    type: Number
+  },
+  reviews: {
+    type: [String]
   }
 });
 

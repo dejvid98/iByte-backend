@@ -1,7 +1,6 @@
 const app = require("./app");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const powersupply = require("./models/powersupplySchema");
 
 dotenv.config({ path: "./config.env" });
 

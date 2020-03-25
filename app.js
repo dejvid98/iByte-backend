@@ -10,7 +10,7 @@ const powersupply = require("./routes/powersupply");
 const app = express();
 
 // Bodyparses middleware
-app.use(express.json({extended:true}))
+app.use(express.json({ extended: true }));
 
 app.use("/api/cpu", cpu);
 app.use("/api/gpu", gpu);

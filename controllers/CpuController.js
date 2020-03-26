@@ -5,7 +5,7 @@ exports.getAllCpus = async (req, res) => {
   res.send(cpus);
 };
 
-exports.findById = async (req, res) => {
-  const cpu = await cpu.findById(req.params.id);
-  res.send(cpu);
+exports.findCpuById = async (req, res) => {
+  const cpuResult = await cpu.findById(req.params.id);
+  res.send(cpuResult);
 };

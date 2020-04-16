@@ -1,11 +1,12 @@
 const express = require("express");
 
-const cpu = require("./routes/cpu");
-const gpu = require("./routes/gpu");
-const ram = require("./routes/ram");
-const ssd = require("./routes/ssd");
-const motherboard = require("./routes/motherboard");
-const powersupply = require("./routes/powersupply");
+const cpu = require("./routes/Cpu");
+const gpu = require("./routes/Gpu");
+const laptop = require("./routes/Laptop");
+const ram = require("./routes/Ram");
+const ssd = require("./routes/Ssd");
+const motherboard = require("./routes/Motherboard");
+const powersupply = require("./routes/Powersupply");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json({ extended: true }));
 
 app.use("/api/cpu", cpu);
 app.use("/api/gpu", gpu);
+app.use("/api/laptop", laptop);
 app.use("/api/motherboard", motherboard);
 app.use("/api/powersupply", powersupply);
 app.use("/api/ram", ram);

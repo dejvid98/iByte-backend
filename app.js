@@ -21,8 +21,5 @@ app.use("/api/powersupply", powersupply);
 app.use("/api/ram", ram);
 app.use("/api/ssd", ssd);
 
-app.get("/", (req, res) => {
-  res.send("<h1>HOLA AMIGO</h1>");
-});
 
 module.exports = app;

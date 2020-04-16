@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const { getAllGpus, findGpuById } = require("../controllers/GpuController");
 
-router.get("/", (req, res) => {
-  res.send("GPU");
-});
+router.route("/").get(getAllGpus);
+
+router.route("/:id").get(findGpuById);
 
 module.exports = router;

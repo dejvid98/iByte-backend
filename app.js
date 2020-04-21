@@ -9,7 +9,8 @@ const motherboard = require("./routes/Motherboard");
 const powersupply = require("./routes/Powersupply");
 
 const app = express();
-
+var cors = require('cors');
+app.use(cors());
 // Bodyparses middleware
 app.use(express.json({ extended: true }));
 

@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 dotenv.config({ path: "./config.env" });
 
 const DB = process.env.DB;
-
 try {
   mongoose
     .connect(DB, {

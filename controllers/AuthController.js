@@ -1,10 +1,11 @@
 const userModel = require("../models/UserModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   try {
     const { email, password, firstName, lastName } = req.body;
-    
+
     let doesExist = await userModel.findOne({ email });
 
     if (doesExist) {
@@ -25,8 +26,20 @@ exports.register = async (req, res) => {
 
     await user.save();
 
-    res.send("Sucess");
+    const payload = {
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+    };
 
+    jwt.sign(payload, "secretTokenz", { expiresIn: 36000 }, (err, token) => {
+      if (err) res.json({ err });
+      res.json({ token });
+    });
+    
   } catch (err) {
     console.log(err);
   }

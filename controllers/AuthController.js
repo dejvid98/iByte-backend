@@ -37,9 +37,38 @@ exports.register = async (req, res) => {
 
     jwt.sign(payload, "secretTokenz", { expiresIn: 36000 }, (err, token) => {
       if (err) res.json({ err });
+
       res.json({ token });
     });
-    
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const userInfo = await userModel.findOne({ email }).lean();
+
+    if (!userInfo) {
+      res.status(400).json({ error: "User not found!" });
+      throw new Error("User not found!");
+    }
+
+    bcrypt.compare(password, userInfo.password, (error, result) => {
+      if (result) {
+        delete userInfo.password;
+
+        jwt.sign({ userInfo }, "secretTokenz", (err, token) => {
+          if (err) res.json({ err });
+          res.json({ token });
+        });
+      } else {
+        res.json({ error });
+        throw new Error(error);
+      }
+    });
   } catch (err) {
     console.log(err);
   }

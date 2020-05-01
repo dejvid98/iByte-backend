@@ -5,7 +5,9 @@ const mongoose = require("mongoose");
 dotenv.config({ path: "./config.env" });
 
 // Paste DB link here to connect
-const DB = "";
+const DB =
+"mongodb+srv://david:dakis9876@cluster0-zw4ea.mongodb.net/ibyte?retryWrites=true&w=majority";
+
 try {
   mongoose
     .connect(DB, {

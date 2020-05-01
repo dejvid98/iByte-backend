@@ -29,10 +29,6 @@ const tvSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  camera: {
-    type: Number,
-    required: true,
-  },
 });
 
 const tv = mongoose.model("tv", tvSchema);

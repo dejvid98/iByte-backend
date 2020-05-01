@@ -38,6 +38,6 @@ app.use("/api/ssd", ssd);
 
 app.use("/api/phone", phone);
 
-app.use("/api/phone", tv);
+app.use("/api/tv", tv);
 
 module.exports = app;

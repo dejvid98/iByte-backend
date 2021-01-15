@@ -1,27 +1,26 @@
-const app = require("./app");
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
+const app = require('./app')
+const mongoose = require('mongoose')
 
-dotenv.config({ path: "./config.env" });
+require('dotenv').config()
 
 // Paste DB link here to connect
-const DB = "";
+const DB_CONNECTION = process.env.DB_CONNECTION
 
 try {
-  mongoose
-    .connect(DB, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-    })
-    .then(() => console.log("DB connection successful!"));
+    mongoose
+        .connect(DB_CONNECTION, {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+            useFindAndModify: false,
+            useUnifiedTopology: true,
+        })
+        .then(() => console.log('DB connection successful!'))
 } catch (e) {
-  console.log(e);
+    console.log(e)
 }
 
-const port = process.env.PORT || 3000;
+const port = process.env.port || 3005
 
 app.listen(port, () => {
-  console.log("Server is running...");
-});
+    console.log(`Server is running on port ${port}...`)
+})

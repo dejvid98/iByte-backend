@@ -28,21 +28,38 @@ exports.register = async (req, res) => {
         user.password = await bcrypt.hash(password, salt)
 
         await user.save()
-
+        console.log(user)
         const payload = {
-            user: {
-                id: user.id,
+            userInfo: {
+                id: user._id,
                 email: user.email,
+                password: user.password,
+                username: user.username,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                address: user.address,
+                phoneNumber: user.phoneNumber,
             },
         }
 
         jwt.sign(payload, 'secretTokenz', { expiresIn: 36000 }, (err, token) => {
             if (err) res.json({ err })
-
             res.json({ token })
         })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+exports.updateUser = async (req, res) => {
+    try {
+        const { email, password, firstName, lastName, username, address, phoneNumber } = req.body
+        const salt = await bcrypt.genSalt(4)
+        const hashedPassword = await bcrypt.hash(password, salt)
+
+        await userModel.findByIdAndUpdate({ email }, { email, password: hashedPassword, firstName, lastName, username, address, phoneNumber })
+
+        res.send('User successfully updated!')
     } catch (err) {
         console.log(err)
     }

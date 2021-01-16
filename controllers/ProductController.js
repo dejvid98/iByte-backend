@@ -9,6 +9,8 @@ const Ram = require('../models/RamModel')
 const Ssd = require('../models/SsdModel')
 const Tv = require('../models/TvModel')
 const Product = require('../models/ReviewModel')
+const Order = require('../models/OrderModel')
+const Review = require('../models/ReviewModel')
 
 exports.findProductById = async (req, res) => {
     try {
@@ -82,9 +84,73 @@ exports.searchProducts = async (req, res) => {
                 }
             })
         )
-        console.log(query)
 
         res.send(results)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+exports.createOrder = async (req, res) => {
+    try {
+        const { userId, items } = req.body
+        const newOrder = await Order.create({ userId, items, orderDate: new Date() })
+        await newOrder.save()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+exports.getUserOrders = async (req, res) => {
+    try {
+        const { id } = req.params
+        const orders = await Order.find({ userId: id })
+        res.send(orders)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+exports.itemsById = async (req, res) => {
+    try {
+        const { id } = req.params
+        const collections = [Cpu, Gpu, Laptop, Phone, Motherboard, Powersupply, Ram, Ssd, Tv]
+        const order = await Order.findOne({ _id: id })
+
+        let results = []
+
+        await Promise.all(
+            collections.map(async collection => {
+                try {
+                    await Promise.all(
+                        order.items.map(async id => {
+                            try {
+                                const resp = await collection.findById(id)
+                                if (resp !== null) results.push(resp)
+                            } catch (error) {
+                                console.log('error' + error)
+                            }
+                        })
+                    )
+                } catch (error) {
+                    console.log('error' + error)
+                }
+            })
+        )
+
+        res.send(results)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+exports.createReview = async (req, res) => {
+    try {
+        const { productId, username, rating, comment } = req.body
+        const review = await Review.create({ productId, username, rating, comment })
+        await review.save()
+
+        res.send('Review successfully written!')
     } catch (err) {
         console.log(err)
     }
